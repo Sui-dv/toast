@@ -37,9 +37,23 @@ def generate_launch_description():
                                    '-entity', 'toast'],
                         output='screen')
 
+    # controller_manager spawner, set parameters in config/my_controllers.yaml
+    diff_drive_spawner = Node(
+        package="controller_manager",
+        executable="spawner.py",
+        arguments=["diff_cont"],
+    )
+
+    joint_broad_spawner = Node(
+        package="controller_manager",
+        executable="spawner.py",
+        arguments=["joint_broad"],
+    )
 
     # Launch them all!
     return LaunchDescription([
+        diff_drive_spawner,
+        joint_broad_spawner,
         rsp,
         gazebo,
         spawn_entity,
